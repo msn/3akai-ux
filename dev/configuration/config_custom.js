@@ -431,5 +431,195 @@ define(["config/config"], function(config) {
         }
     }
 
+    config.Directory = {
+        turbomachineryenergyfluidmechanics: {
+            title: "Turbomachinery, Energy and Fluid Mechanics",
+            children: {
+                energy: {
+                    title: "Energy"
+                },
+                fluidmechanics: {
+                    title: "Fluid Mechanics"
+                },
+                turbomachinery: {
+                    title: "Turbomachinery"
+                }
+            }
+        },
+        electricalengineering: {
+            title: "Electrical Engineering",
+            children: {
+                solidstateelectronicsnanoscalescience: {
+                    title: "Solid State Electronics and Nanoscale Science"
+                },
+                electronicspowerenergyconversion: {
+                    title: "Electronics, Power and Energy Conversion"
+                },
+                photonicsresearch: {
+                    title: "Photonics Research"
+                },
+                centreforadvancedphotonicsandelectronics: {
+                    title: "Centre for Advanced Photonics and Electronics"
+                },
+                cambridgeintegratedknowledgecentre: {
+                    title: "Cambridge Integrated Knowledge Centre"
+                },
+                cambridgenanosciencecentre: {
+                    title: "Cambridge Nanoscience Centre"
+                },
+                doctoraltrainingcentrenanoscience: {
+                    title: "Doctoral Training Centre - NanoScience"
+                },
+                doctoraltrainingcentrephotonicssystemsdevelopment: {
+                    title: "Doctoral Training Centre - Photonics Systems Development"
+                }
+            }
+        },
+        mechanicsmaterialsdesign: {
+            title: "Mechanics, Materials and Design",
+            children: {
+                appliedmechanics: {
+                    title: "Applied Mechanics"
+                },
+                materialsengineering: {
+                    title: "Materials Engineering"
+                },
+                engineeringdesign: {
+                    title: "Engineering Design"
+                }
+            }
+        },
+        civilstructuralenvironmentalengineering: {
+            title: "Civil, Structural and Environmental Engineering",
+            children: {
+                geotechnicalenvironmental: {
+                    title: "Geotechnical and Environmental"
+                },
+                structures: {
+                    title: "Structures"
+                },
+                sustainabledevelopment: {
+                    title: "Sustainable Development"
+                },
+                laingorourkecentreforconstructionengineeringandtechnology: {
+                    title: "Laing O'Rourke Centre for Construction Engineering and Technology"
+                }
+            }
+        },
+        manufacturingmanagement: {
+            title: "Manufacturing and Management",
+            children: {
+                distributedinformationautomationlaboratory: {
+                    title: "Distributed Information and Automation Laboratory"
+                },
+                decisionsupport: {
+                    title: "Decision Support"
+                },
+                economicspolicy: {
+                    title: "Economics and Policy"
+                },
+                internationalmanufacturing: {
+                    title: "International Manufacturing"
+                },
+                productionprocesses: {
+                    title: "Production Processes"
+                },
+                strategyperformance: {
+                    title: "Strategy and Performance"
+                },
+                technologymanagement: {
+                    title: "Technology Management"
+                },
+                businessresearch: {
+                    title: "Business Research"
+                },
+                industrialphotonics: {
+                    title: "Industrial Photonics"
+                },
+                innovativemanufacturingresearchcentre: {
+                    title: "Innovative Manufacturing Research Centre"
+                }
+            }
+        },
+        informationengineering: {
+            title: "Information Engineering",
+            children: {
+                controllaboratory: {
+                    title: "Control Laboratory"
+                },
+                machineintelligencelaboratory: {
+                    title: "Machine Intelligence Laboratory"
+                },
+                signalprocessingcommunicationslaboratory: {
+                    title: "Signal Processing and Communications Laboratory"
+                },
+                computationalbiologicallearning: {
+                    title: "Computational and Biological Learning"
+                }
+            }
+        },
+        strategicthemes: {
+            title: "Strategic Themes",
+            children: {
+                energytransportandurbaninfrastructure: {
+                    title: "Energy, transport and urban infrastructure"
+                },
+                uncertaintyriskandresilience: {
+                    title: "Uncertainty, risk and resilience"
+                },
+                engineeringforlifesciencesandhealthcare: {
+                    title: "Engineering for life sciences and healthcare"
+                },
+                inspiringresearchthroughindustrialcollaboration: {
+                    title: "Inspiring research through industrial collaboration"
+                }
+            }
+        },
+        cuedteaching: {
+            title: "CUED Teaching",
+            children: {
+                engineeringtripospartia: {
+                    title: "Engineering Tripos Part IA"
+                },
+                engineeringtripospartib: {
+                    title: "Engineering Tripos Part IB"
+                },
+                engineeringtripospartiia: {
+                    title: "Engineering Tripos Part IIA"
+                },
+                engineeringtripospartiib: {
+                    title: "Engineering Tripos Part IIB"
+                },
+                manufacturingengineeringtripospartiia: {
+                    title: "Manufacturing Engineering Tripos Part IIA"
+                },
+                manufacturingengineeringtripospartiib: {
+                    title: "Manufacturing Engineering Tripos Part IIB"
+                },
+                mphilinnuclearenergy: {
+                    title: "MPhil in Nuclear Energy"
+                },
+                mphilinindustrialsystemsmanufactureandmanagement: {
+                    title: "MPhil in Industrial Systems, Manufacture and Management"
+                },
+                mphilinenergytechnologies: {
+                    title: "MPhil in Energy Technologies"
+                },
+                mphilininterdisciplinarydesignforthebuiltenvironment: {
+                    title: "MPhil in Interdisciplinary Design for the Built Environment"
+                },
+                mphilinengineeringforsustainabledevelopment: {
+                    title: "MPhil in Engineering for Sustainable Development"
+                },
+                mphilinconstructionengineering: {
+                    title: "MPhil in Construction Engineering"
+                },
+                mresinphotonicssystemsdevelopment: {
+                    title: "MRes in Photonics Systems Development"
+                }
+            }
+        }
+    };
+
     return config;
 });
