@@ -452,10 +452,156 @@ require(["jquery", "sakai/sakai.api.core"], function($, sakai) {
                 var pos = $li.position();
                 $subnav.css("left", pos.left - 2);
                 $subnav.show();
-            }, function(){
-                var $li = $(this);
-                $li.children(subnavtl).hide();
-                $li.children(navLinkDropdown).hide();
+            };
+
+            $(hasSubnav).hover(openMenu, closeMenu);
+
+            // remove focus of menu item if mouse is used
+            $(hasSubnav + " div").find("a").hover(function(){
+                if ($openMenu.length) {
+                    $openMenu.find("a").blur();
+                }
+            });
+
+            // bind down/left/right keys for top menu
+            $("#topnavigation_container .s3d-dropdown-menu").keydown(function(e) {
+                if (e.which == $.ui.keyCode.DOWN && $(this).hasClass("hassubnav")) {
+                    $(this).find("div a:first").focus();
+                    return false; // prevent browser page from scrolling down
+                } else if (e.which == $.ui.keyCode.LEFT) {
+                    if ($(this).prevAll("li:first").length > 0){
+                        $(this).prevAll("li:first").children("a").focus();
+                    } else if ($(this).parent().hasClass("topnavigation_user_container")) {
+                        if ($("#topnavigation_search_input").length) {
+                            $("#topnavigation_search_input").focus();
+                        } else {
+                            $(this).parent().prevAll("ul").find("li:last a").focus();
+                        }
+                    } else if ($(this).parent().parent().hasClass("topnavigation_user_container")) {
+                        if ($("#topnavigation_user_inbox_container").length){
+                            $("#topnavigation_user_inbox_container").focus();
+                        } else if ($("#topnavigation_search_input").length) {
+                            $("#topnavigation_search_input").focus();
+                        } else {
+                            $(this).parent().parent().parent().prevAll("ul").children("li:last").children("a").focus();
+                        }
+                    }
+                    return false;
+                } else if (e.which == $.ui.keyCode.RIGHT) {
+                    if ($(this).nextAll("li:first").length > 0){
+                        $(this).nextAll("li:first").children("a").focus();
+                    } else if ($(this).parent().hasClass("topnavigation_explore")) {
+                        if ($("#topnavigation_search_input").length) {
+                            $("#topnavigation_search_input").focus();
+                        } else if ($("#topnavigation_user_options_login").length) {
+                            // focus on login menu
+                            $("#topnavigation_user_options_login").focus();
+                            $(topnavUseroptionsLoginFieldsUsername).focus();
+                        } else if ($("#topnavigation_user_options_name").length) {
+                            // focus on user options menu
+                            $("#topnavigation_user_options_name").focus();
+                        }
+                    }
+                    return false;
+                } else if ($(this).hasClass("hassubnav") && $(this).children("a").is(":focus")) {
+                    // if a letter was pressed, search for the first menu item that starts with the letter
+                    var keyPressed = String.fromCharCode(e.which).toLowerCase();
+                    $(this).find("ul:first").children().each(function(index, item){
+                        var firstChar = $.trim($(item).text()).toLowerCase().substr(0, 1);
+                        if (keyPressed === firstChar){
+                            $(item).find("a").focus();
+                            return false;
+                        }
+                    });
+                }
+            });
+
+            $("#topnavigation_search_input").keydown(function(e) {
+                if (e.which == $.ui.keyCode.LEFT && $(this).getSelection().start === 0) {
+                    $(this).parent().parent().prevAll("ul").children("li:last").children("a").focus();
+                    return false;
+                } else if (e.which == $.ui.keyCode.RIGHT && $(this).getSelection().start === $(this).val().length) {
+                    if ($("#topnavigation_user_inbox_container").length) {
+                        // focus on inbox link
+                        $("#topnavigation_user_inbox_container").focus();
+                    } else if ($("#topnavigation_user_options_login").length) {
+                        // focus on login menu
+                        $("#topnavigation_user_options_login").focus();
+                        $(topnavUseroptionsLoginFieldsUsername).focus();
+                    } else if ($("#topnavigation_user_options_name").length) {
+                        // focus on user options menu
+                        $("#topnavigation_user_options_name").focus();
+                    }
+                    return false;
+                }
+            });
+
+            $("#topnavigation_user_inbox_container").keydown(function(e) {
+                if (e.which == $.ui.keyCode.LEFT) {
+                    if ($("#topnavigation_search_input").length) {
+                        // focus on search input
+                        $("#topnavigation_search_input").focus();
+                    }
+                } else if (e.which == $.ui.keyCode.RIGHT) {
+                    if ($("#topnavigation_user_options_name").length) {
+                        // focus on user options menu
+                        $("#topnavigation_user_options_name").focus();
+                    }
+                }
+            });
+
+            // bind up/down keys in sub menu
+            $(hasSubnav + " div a").keydown(function(e) {
+                if (e.which == $.ui.keyCode.DOWN) {
+                    if ($(this).parent().nextAll("li:first").length > 0){
+                        $(this).parent().nextAll("li:first").children("a").focus();
+                    }
+                    return false; // prevent browser page from scrolling down
+                } else if (e.which == $.ui.keyCode.UP) {
+                    if ($(this).parent().prevAll("li:first").length > 0) {
+                        $(this).parent().prevAll("li:first").children("a").focus();
+                    } else {
+                        $(this).parent().parents("li:first").find("a:first").focus();
+                    }
+                    return false;
+                } else if (e.which == $.ui.keyCode.ESCAPE) {
+                    $(this).parent().parents("li:first").find("a:first").focus();
+                } else {
+                    // if a letter was pressed, search for the next menu item that starts with the letter
+                    var keyPressed = String.fromCharCode(e.which).toLowerCase();
+                    var $activeItem = $(this).parents("li:first");
+                    var $menuItems = $(this).parents("ul:first").children();
+                    var activeIndex = $menuItems.index($activeItem);
+                    var itemFound = false;
+                    $menuItems.each(function(index, item){
+                        var firstChar = $.trim($(item).text()).toLowerCase().substr(0, 1);
+                        if (keyPressed === firstChar && index > activeIndex){
+                            $(item).find("a").focus();
+                            itemFound = true;
+                            return false;
+                        }
+                    });
+                    if (!itemFound) {
+                        $menuItems.each(function(index, item){
+                            var firstChar = $.trim($(item).text()).toLowerCase().substr(0, 1);
+                            if (keyPressed === firstChar) {
+                                $(item).find("a").focus();
+                                return false;
+                            }
+                        });
+                    }
+                }
+            });
+
+            $(hasSubnav + " a").bind("focus",function(){
+                if ($(this).parent().hasClass("hassubnav")) {
+                    $(this).trigger("mouseover");
+                    $(this).parents(".s3d-dropdown-menu").children("a").addClass(topnavigationForceSubmenuDisplayTitle);
+                }
+            });
+
+            $("#navigation_anon_signup_link").live("hover",function(evt){
+                closeMenu();
             });
 
             // hide the menu after an option has been clicked
@@ -514,6 +660,13 @@ require(["jquery", "sakai/sakai.api.core"], function($, sakai) {
                 }
             });
 
+
+            $("#topnavigation_user_options_name").keydown(function(e) {
+                // hide signin or user options menu when tabbing out of the last menu option
+                if (!e.shiftKey && e.which == $.ui.keyCode.TAB) {
+                    closeMenu();
+                }
+            });
 
             $(topnavUserOptions).bind("click", decideShowLoginLogout);
 
